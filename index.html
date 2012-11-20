@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+ <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+ <script src="jcanvas.min.js"></script>
+ <script>
+$(function() {
+
+  $("canvas").drawRect({
+      fillStyle: "#da9e3e",
+      x: 0, y: 0,
+      width: 1000, height: 1000,
+      fromCenter: false
+  }).drawEllipse({
+    fillStyle: "#eab768",
+    x: rand(200, 900), y: rand(10, 200),
+    width: 700, height: 700,
+});
+  var i = 0;
+  setInterval(function () {
+  i = ++i % 360 + 1; // SET { 1-360 }
+  createIsoBox(rand(10, 400-i/10), 50, rand(10, 400-(i*2)), rand(-100, 1000), rand(200+i*3, 600+i*2));
+
+}, 100);
+});
+
+function rand (min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function createIsoBox(height, width, depth, x, y) {
+  var offset = 25;
+
+  $("canvas").drawLine({
+    fillStyle: "#e4b155",
+    x1: x, y1: y,
+    x2: x + width, y2: y+offset,
+    x3: x + width, y3: (y + height)+offset,
+    x4: x, y4: y + height
+  }).drawLine({
+    fillStyle: "#572500",
+    x1: x + width, y1: y+offset,
+    x2: x + depth, y2:  y,
+    x3: x + depth, y3: y+height,
+    x4: x + width, y4: (y + height)+offset,
+  }).drawLine({
+    fillStyle: "#905e21",
+    x1: x, y1: y,
+    x2: x + width, y2: y+offset,
+    x3: x + depth, y3:  y,
+    x4: x +depth - width, y4: y- offset,
+  });
+}
+
+</script>
+
+</head>
+<body>
+<canvas height="1000" width="1000" />
+</body>
+</html>
